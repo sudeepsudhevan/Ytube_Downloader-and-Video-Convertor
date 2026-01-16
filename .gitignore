@@ -5,6 +5,7 @@ __pycache__/
 *.pyo
 *.dist-info/
 *.egg-info/
+.buildozer/
 
 # Distribution / packaging
 .Python
