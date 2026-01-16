@@ -7,7 +7,7 @@ from clean_path_generator import clean_path_generator
 
 # Specify the folder to save downloads
 
-youtube_url = "https://www.youtube.com/watch?v=bxuYDT-BWaI"
+youtube_url = "https://www.youtube.com/watch?v=KPBqxZPvYS0"
 base_path = Path("E:/Python_Rcap")
 
 yt_video_folder = base_path / "yt_videos"
