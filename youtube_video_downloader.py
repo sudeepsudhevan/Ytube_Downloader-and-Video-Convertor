@@ -11,6 +11,7 @@ def download_youtube_video(youtube_url: str, yt_video_folder: Path) -> None:
 
     command = [
         "yt-dlp",
+        "-f", "bestvideo+bestaudio/best",
         "-o",
         f"{yt_video_folder}/%(title)s",
         youtube_url,

@@ -37,3 +37,5 @@ instance/
 *.mpeg
 *.3gp
  
+# Cookie
+cookies.txt

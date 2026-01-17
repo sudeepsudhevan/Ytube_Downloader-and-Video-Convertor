@@ -4,7 +4,6 @@ from youtube_video_downloader import download_youtube_video
 from clean_path_generator import clean_path_generator
 from choose_command import choose_command
 
-
 # Specify the folder to save downloads
 
 youtube_url = "https://www.youtube.com/watch?v=5vYipYSDhtQ"
