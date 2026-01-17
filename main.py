@@ -1,6 +1,5 @@
 import subprocess
 from pathlib import Path
-from ffmpeg_commands import build_command
 from youtube_video_downloader import download_youtube_video
 from clean_path_generator import clean_path_generator
 from choose_command import choose_command
@@ -13,12 +12,19 @@ base_path = Path("E:/Python_Rcap")
 
 yt_video_folder = base_path / "yt_videos"
 yt_video_folder.mkdir(parents=True, exist_ok=True)
-# yt-dlp --download-sections "*00:02:30-00:05:10" https://www.youtube.com/watch?v=VIDEO_ID
+
+local_video_folder = base_path / "local_videos"
+local_video_folder.mkdir(parents=True, exist_ok=True)
 
 def main():
+    user_input = input("Do you want to download a YouTube video? Y/N: ")
 
-    download_youtube_video(youtube_url, yt_video_folder)
-    new_path = clean_path_generator(yt_video_folder)
+    if user_input.lower() == 'y':
+        download_youtube_video(youtube_url, yt_video_folder)
+        new_path = clean_path_generator(yt_video_folder)
+    else:
+        input("Please place your local video files in the 'local_videos' folder and press Enter to continue...")
+        new_path = clean_path_generator(local_video_folder)
 
     if new_path is not None:
         # Convert to Path object for easy manipulation
