@@ -3,11 +3,12 @@ from pathlib import Path
 from ffmpeg_commands import build_command
 from youtube_video_downloader import download_youtube_video
 from clean_path_generator import clean_path_generator
+from choose_command import choose_command
 
 
 # Specify the folder to save downloads
 
-youtube_url = "https://www.youtube.com/watch?v=KPBqxZPvYS0"
+youtube_url = "https://www.youtube.com/watch?v=5vYipYSDhtQ"
 base_path = Path("E:/Python_Rcap")
 
 yt_video_folder = base_path / "yt_videos"
@@ -27,11 +28,7 @@ def main():
         output_Folder.mkdir(parents=True, exist_ok=True)
         output_path = output_Folder / f"pro_{input_path.stem}.mp4"
 
-        command = build_command(
-            "remux_copy", 
-            input=str(input_path), 
-            output=str(output_path)
-        )
+        command = choose_command(input_path, output_path)
 
         try:
             print(f"Processing {input_path.name}...")

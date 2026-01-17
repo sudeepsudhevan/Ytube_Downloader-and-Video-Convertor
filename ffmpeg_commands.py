@@ -9,7 +9,7 @@ Usage:
 FFMPEG_COMMANDS = {
 
     # =========================
-    # 🎯 BASELINE (BEST QUALITY)
+    # 🎯 BASELINE (BEST QUALITY) No. 0
     # =========================
     "base_best_quality": {
         "command": [
@@ -33,7 +33,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # ✂️ TRIMMING
+    # ✂️ TRIMMING No. 1, 2
     # =========================
     "trim_reencode": {
         "command": [
@@ -67,7 +67,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # ✂️ SPLITTING
+    # ✂️ SPLITTING No. 3
     # =========================
     "split_segments": {
         "command": [
@@ -85,7 +85,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # 📦 COMPRESSION
+    # 📦 COMPRESSION N0. 4, 5
     # =========================
     "compress_high_quality": {
         "command": [
@@ -119,7 +119,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # 🎧 AUDIO EXTRACTION
+    # 🎧 AUDIO EXTRACTION No. 6, 7
     # =========================
     "extract_audio_wav": {
         "command": [
@@ -147,7 +147,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # 🎥 VIDEO EXTRACTION
+    # 🎥 VIDEO EXTRACTION No. 8
     # =========================
     "extract_video_only": {
         "command": [
@@ -164,7 +164,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # 📐 RESIZE / SCALE
+    # 📐 RESIZE / SCALE No.9
     # =========================
     "resize_video": {
         "command": [
@@ -183,7 +183,7 @@ FFMPEG_COMMANDS = {
     },
 
     # =========================
-    # 🔁 REMUX (NO RE-ENCODE)
+    # 🔁 REMUX (NO RE-ENCODE) No. 10
     # =========================
     "remux_copy": {
         "command": [
