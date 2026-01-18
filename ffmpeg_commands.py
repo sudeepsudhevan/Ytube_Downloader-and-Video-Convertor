@@ -6,6 +6,9 @@ Usage:
     from ffmpeg_commands import FFMPEG_COMMANDS
 """
 
+import json
+import os
+
 FFMPEG_COMMANDS = {
 
     # =========================
@@ -198,19 +201,29 @@ FFMPEG_COMMANDS = {
 }
 
 
-def build_command(profile: str, **kwargs) -> list:
-    """
-    Build an FFmpeg command from a profile.
+def get_all_commands(db_path: str = "ffmpeg_db.json") -> dict:
+    """Merges hardcoded dict with external JSON."""
+    all_cmds = FFMPEG_COMMANDS.copy()
+    if os.path.exists(db_path):
+        try:
+            with open(db_path, "r") as f:
+                all_cmds.update(json.load(f))
+        except Exception as e:
+            print(f"⚠️ Warning: Load failed: {e}")
+    return all_cmds
 
-    Example:
-        build_command(
-            "trim_reencode",
-            input="in.mp4",
-            output="out.mp4",
-            start="00:00:10",
-            end="00:00:30"
-        )
-    """
-    template = FFMPEG_COMMANDS[profile]["command"]
-    print(template)
-    return [arg.format(**kwargs) for arg in template]
+def build_command(profile: str, **kwargs) -> list:
+    """Builds command by looking in the merged database."""
+    # Use the helper to get the latest combined list
+    commands = get_all_commands()
+    
+    if profile not in commands:
+        raise KeyError(f"Profile '{profile}' not found.")
+
+    template = commands[profile]["command"]
+    
+    try:
+        return [arg.format(**kwargs) for arg in template]
+    except KeyError as e:
+        print(f"❌ Missing required parameter: {e}")
+        return []
