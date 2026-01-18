@@ -38,7 +38,7 @@ Before running the application, ensure you have the following installed:
 2. Install the required Python dependencies:
 
 ```bash
-pip install kivy yt-dlp
+pip install -r requirements.txt
 ```
 
 > **Note**: For Kivy installation on specific platforms, refer to the [official Kivy documentation](https://kivy.org/doc/stable/gettingstarted/installation.html).
