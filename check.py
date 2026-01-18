@@ -16,7 +16,20 @@ def save_new_profile(profile_name: str, command_list: list, description: str, db
 
 profile_name = input("Enter a name for the new FFmpeg profile: ")
 command_input = input("Enter the FFmpeg command as a space-separated string: ")
-command_list = command_input.split()
+# command_list = command_input.split()
+command_list = [
+            "ffmpeg",
+            "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-c:v", "h264_nvenc",
+            "-preset", "p4",
+            "-rc", "vbr",
+            "-cq", "18",
+            "-c:a", "aac",
+            "-b:a", "192k",
+            "{output}"
+        ]
 description = input("Enter a brief description of the profile: ")
 save_new_profile(profile_name, command_list, description)
 print(f"Profile '{profile_name}' saved successfully.")

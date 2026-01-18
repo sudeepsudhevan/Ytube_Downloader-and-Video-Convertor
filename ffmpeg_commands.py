@@ -10,6 +10,79 @@ import json
 import os
 
 FFMPEG_COMMANDS = {
+    
+    # =========================
+    # 🎯 BASELINE (GPU ACCELERATED)
+    # =========================
+    "base_gpu_quality": {
+        "command": [
+            "ffmpeg", "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-c:v", "h264_nvenc",
+            "-preset", "p6",      # p1-p7 (p6 is high quality)
+            "-rc", "vbr",         # Variable Bitrate
+            "-cq", "19",          # Similar to CRF
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "192k",
+            "{output}"
+        ],
+        "description": "GPU accelerated H.264 encoding (High Quality)"
+    },
+
+    # =========================
+    # ✂️ TRIMMING (GPU)
+    # =========================
+    "trim_gpu_reencode": {
+        "command": [
+            "ffmpeg", "-y",
+            "-hwaccel", "cuda",
+            "-ss", "{start}", "-to", "{end}",
+            "-i", "{input}",
+            "-c:v", "h264_nvenc",
+            "-preset", "p4",
+            "-cq", "19",
+            "-c:a", "aac",
+            "{output}"
+        ],
+        "description": "Fast GPU-based frame-accurate trimming"
+    },
+
+    # =========================
+    # 📦 COMPRESSION (GPU)
+    # =========================
+    "compress_gpu_h265": {
+        "command": [
+            "ffmpeg", "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-c:v", "hevc_nvenc", # Use H.265 GPU encoder
+            "-preset", "p6",
+            "-rc", "vbr",
+            "-cq", "24",          # Higher number = more compression
+            "-c:a", "aac",
+            "{output}"
+        ],
+        "description": "Ultra-fast H.265 compression via GPU"
+    },
+
+    # =========================
+    # 📐 RESIZE / SCALE (GPU)
+    # =========================
+    "resize_gpu": {
+        "command": [
+            "ffmpeg", "-y",
+            "-hwaccel", "cuda",
+            "-hwaccel_output_format", "cuda", # Keep frame in GPU memory
+            "-i", "{input}",
+            "-vf", "scale_cuda={width}:{height}", # Resize on the GPU chip
+            "-c:v", "h264_nvenc",
+            "-preset", "p4",
+            "-c:a", "aac",
+            "{output}"
+        ],
+        "description": "Resize video entirely on GPU (no CPU bottleneck)"
+    },
 
     # =========================
     # 🎯 BASELINE (BEST QUALITY) No. 0

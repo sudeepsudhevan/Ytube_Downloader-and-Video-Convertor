@@ -16,21 +16,23 @@ def clean_path_generator(folder_path: Path) -> Path | None:
             print(f"No files found in '{folder_path}'.")
             return None
 
-        # Select the file to clean
-        for i, f in enumerate(files, start=1):
-            print(f"{i}. {f.name}")
-
         if len(files) == 1:
             index = 0
         else:
-            # Display the files with numbers so the user knows what to pick
-            for i, file in enumerate(files, 1):
-                print(f"{i}. {file.name}")
-                
-            user_input = int(input(f"Enter the file number to process (1-{len(files)}): "))
+            # ONLY print the list here once
+            print("\nAvailable files:")
+            for i, f in enumerate(files, start=1):
+                print(f"{i}. {f.name}")
             
-            # Adjust for 0-based indexing
-            index = user_input - 1
+            try:
+                user_input = int(input(f"Enter the file number to process (1-{len(files)}): "))
+                index = user_input - 1
+                if not (0 <= index < len(files)):
+                    print("❌ Choice out of range.")
+                    return None
+            except ValueError:
+                print("❌ Invalid input. Please enter a number.")
+                return None
         old_file = files[index]
 
         # 2. Separate name and extension

@@ -1,6 +1,92 @@
 {
     "gif_maker": {
-        "command": ["ffmpeg", "-i", "{input}", "-vf", "fps=10,scale=320:-1", "{output}"],
+        "command": [
+            "ffmpeg",
+            "-i", "{input}",
+            "-vf",
+            "fps=10,scale=320:-1",
+            "{output}"
+        ],
         "description": "Convert video to small GIF"
+    },
+    "nvidia_gpu_encode": {
+        "command": [
+            "ffmpeg",
+            "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-c:v", "h264_nvenc",
+            "-preset", "p4",
+            "-rc", "vbr",
+            "-cq", "18",
+            "-c:a", "aac",
+            "-b:a", "192k",
+            "{output}"
+        ],
+        "description": "GPU Accelerated encoding using NVIDIA NVENC (Fast)"
+    },
+    "gpu_denoise": {
+        "command": [
+            "ffmpeg",
+            "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-vf", "hwupload_cuda,nlmeans_cuda,hwdownload,format=yuv420p",
+            "-c:v", "h264_nvenc",
+            "-preset", "p4",
+            "{output}"
+        ],
+        "description": "Remove video noise/grain using CUDA cores"
+    },
+    "gpu_deinterlace": {
+        "command": [
+            "ffmpeg",
+            "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-vf", "yadif_cuda",
+            "-c:v", "h264_nvenc",
+            "{output}"
+        ],
+        "description": "High-speed deinterlacing for old footage"
+    },
+    "slow_mo_cpu": {
+        "command": [
+            "ffmpeg",
+            "-y",
+            "-i", "{input}",
+            "-vf", "setpts={factor}*PTS",
+            "-an", 
+            "-c:v", "libx264",
+            "-crf", "18",
+            "{output}"
+        ],
+        "description": "Slow motion by adjusting timestamps (removes audio)"
+    },
+    "slow_mo_smooth": {
+        "command": [
+            "ffmpeg",
+            "-y",
+            "-i", "{input}",
+            "-vf",  "minterpolate=fps=60:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsfm=1",
+            "-c:v", "libx264",
+            "-crf", "20",
+            "{output}"
+        ],
+        "description": "AI-style smooth slow motion using frame interpolation"
+    },
+    "slow_mo_gpu": {
+        "command": [
+            "ffmpeg",
+            "-y",
+            "-hwaccel", "cuda",
+            "-i", "{input}",
+            "-vf", "setpts={factor}*PTS",
+            "-c:v", "h264_nvenc",
+            "-preset",  "p4",
+            "-cq", "19",
+            "{output}"
+        ],
+        "description": "GPU-accelerated slow motion"
     }
 }

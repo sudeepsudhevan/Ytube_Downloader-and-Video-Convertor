@@ -45,6 +45,10 @@ def choose_command(input_path: Path, output_path: Path) -> list[str]:
             output_path.parent / f"{output_path.stem}_%03d{output_path.suffix}"
         )
 
+    if "{factor}" in cmd_str:
+        print("\nSlow Motion Factor (e.g., 2.0 = 2x slower, 4.0 = 4x slower)")
+        kwargs["factor"] = input("Enter slow-mo factor: ") or "2.0"
+
     # --- 6. Final Build ---
     # build_command also calls get_all_commands internally, ensuring consistency
     return build_command(selected_key, **kwargs)
