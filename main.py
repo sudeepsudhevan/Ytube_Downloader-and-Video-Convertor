@@ -33,6 +33,12 @@ def main():
         output_Folder.mkdir(parents=True, exist_ok=True)
         output_path = output_Folder / f"pro_{input_path.stem}.mp4"
 
+        # # Do you want to quit before ffmpeg processing?
+        # quit_after_cleaning = input("Do you want to quit before ffmpeg processing Y/N: ")
+        # if quit_after_cleaning.lower() == 'y':
+        #     print("Exiting as per user request.")
+        #     return
+
         command = choose_command(input_path, output_path)
 
         try:
