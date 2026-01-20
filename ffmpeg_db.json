@@ -27,16 +27,17 @@
     },
     "gpu_denoise": {
         "command": [
-            "ffmpeg",
-            "-y",
+            "ffmpeg", "-y",
             "-hwaccel", "cuda",
+            "-hwaccel_output_format", "cuda",
             "-i", "{input}",
-            "-vf", "hwupload_cuda,nlmeans_cuda,hwdownload,format=yuv420p",
+            "-vf", "bilateral_cuda=5:5", 
             "-c:v", "h264_nvenc",
-            "-preset", "p4",
+            "-preset", "p6",
+            "-cq", "18",
             "{output}"
         ],
-        "description": "Remove video noise/grain using CUDA cores"
+        "description": "High-speed GPU denoising using NVIDIA NPP"
     },
     "gpu_deinterlace": {
         "command": [

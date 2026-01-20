@@ -19,6 +19,7 @@ Perform professional video operations with ease:
 - **Video Extraction**: Remove audio tracks.
 - **Resizing**: Scale videos with high-quality Lanczos resampling.
 - **Remuxing**: Change container formats without re-encoding.
+- **Custom FFmpeg Profiles**: Create and save your own FFmpeg command profiles for reusable video processing workflows.
 
 ## 💻 Interfaces
 - **GUI**: A modern, dark-themed graphical interface built with **Kivy**.
@@ -63,6 +64,22 @@ Launch the command-line interface:
 python main.py
 ```
 Follow the on-screen prompts to download videos or process local files.
+
+### Creating Custom FFmpeg Profiles
+Save your own FFmpeg command profiles for quick reuse:
+```bash
+python add_custom_command.py
+```
+- Enter a name for your custom profile (e.g., `my_cuda_profile`).
+- Define the FFmpeg command parameters or use the pre-configured example.
+- Add a description to identify the profile's purpose.
+- The profile is automatically saved to `ffmpeg_db.json`.
+
+**Example workflow**:
+1. Run `python add_custom_command.py`
+2. Enter profile name: `my_cuda_profile`
+3. Enter description: `NVIDIA CUDA H.264 encoding with high quality`
+4. Your profile is now saved and can be reused in future operations.
 
 ## Project Structure
 
